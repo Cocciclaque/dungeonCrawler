@@ -85,6 +85,8 @@ while kb.running:
             
         #déplacement des aliens
         aliens.update_position(laby)
+        #collision avec alien
+        aliens.check_collision_with_player(player_pos)
         
         alien_move_counter += 1
         if alien_move_counter >= 2:

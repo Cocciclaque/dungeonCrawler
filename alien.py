@@ -31,3 +31,12 @@ class alien:
         else:
             # Change direction if colliding with a wall
             self.direction = random.choice(['UP', 'DOWN', 'LEFT', 'RIGHT'])
+            
+    def check_collision_with_player(self, player_pos):
+        alien_rect = pygame.Rect(self.item[0][0] * self.tilesize, self.item[0][1] * self.tilesize, self.tilesize, self.tilesize)
+        player_rect = pygame.Rect(player_pos.x * self.tilesize, player_pos.y * self.tilesize, self.tilesize, self.tilesize)
+
+        if alien_rect.colliderect(player_rect):
+            print("Touché!")
+            # Handle collision with player
+            self.direction = random.choice(['UP', 'DOWN', 'LEFT', 'RIGHT'])
