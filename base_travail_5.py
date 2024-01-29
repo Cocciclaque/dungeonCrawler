@@ -84,7 +84,7 @@ while kb.running:
             print("pos: ", [player_pos.x, player_pos.y])
             
         #déplacement des aliens
-        aliens.update_position()
+        aliens.update_position(laby)
         
         alien_move_counter += 1
         if alien_move_counter >= 2:

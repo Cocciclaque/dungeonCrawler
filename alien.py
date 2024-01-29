@@ -11,14 +11,23 @@ class alien:
         
     def draw(self, screen):
         for elt in self.item:
-            pygame.draw.circle(screen, self.color, [elt[0] * self.tilesize, elt[1] * self.tilesize], 15)
+            pygame.draw.circle(screen, self.color, [elt[0] * self.tilesize + self.tilesize // 2, elt[1] * self.tilesize + self.tilesize // 2], 15)
             
-    def update_position(self):
+    def update_position(self, laby):
+        new_x, new_y = self.item[0][0], self.item[0][1]
+
         if self.direction == 'UP':
-            self.item[0][1] -= 1
+            new_y -= 1
         elif self.direction == 'DOWN':
-            self.item[0][1] += 1
+            new_y += 1
         elif self.direction == 'LEFT':
-            self.item[0][1] -= 1
+            new_x -= 1
         elif self.direction == 'RIGHT':
-            self.item[0][1] += 1
+            new_x += 1
+
+        # Check for collision with walls
+        if not laby.hit_box(new_x, new_y):
+            self.item[0][0], self.item[0][1] = new_x, new_y
+        else:
+            # Change direction if colliding with a wall
+            self.direction = random.choice(['UP', 'DOWN', 'LEFT', 'RIGHT'])
