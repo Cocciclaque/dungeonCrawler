@@ -6,6 +6,8 @@ class keyboard:
         self.k = keys
         self.running = True
         self.n = 0
+        self.sp = False
+        self.sg = False
 
     def get(self):
         for event in pygame.event.get():
@@ -39,9 +41,10 @@ class keyboard:
                 if event.key == pygame.K_ESCAPE:
                     self.running = False
                 if event.key == pygame.K_g:
-                    show_grid = not show_grid
+                    self.sg = not self.sg
                 if event.key == pygame.K_p:
-                    show_pos = not show_pos
+                    self.sp = not self.sp
+                
             
             if event.type == pygame.MOUSEBUTTONDOWN:
                 pos = pygame.mouse.get_pos()

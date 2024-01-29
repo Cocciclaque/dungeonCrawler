@@ -9,6 +9,9 @@ class Labyrinthe :
         self.sizeY = sizeY
         self.version = ""
         self.author = ""
+        self.start = ""
+        self.finish = ""
+        self.end = False
         #attention création d'une matrice en Y X
         self.matrice = [ [0]* self.sizeX for _ in range(self.sizeY) ]
 
@@ -75,7 +78,23 @@ class Labyrinthe :
                     tmp_list[j]= convert_data(tmp_list[j])
             #print(tmp_list)
             self.matrice[i]=tmp_list
+
+        self.setAD()
     
+    def setAD(self):
+        for i in range(len(self.matrice)):
+            for j in range(len(self.matrice[i])):
+                if self.matrice[i][j] == 100:
+                    self.start = [j, i]
+                if self.matrice[i][j] == 101:
+                    self.finish = [j, i]
+        print(self.start, self.finish)
+
+    def hit_finish(self, x, y):
+        if x==self.finish[0] and y==self.finish[1] and self.end == False:
+            print("Vous êtes arrivés à la sortie !")
+            self.end = True
+
     def hit_box(self, x, y):
         """indique si l'élément (x,y) est un mur"""
         if x>=self.sizeX or x<0 or y<0 or y>=self.sizeY:

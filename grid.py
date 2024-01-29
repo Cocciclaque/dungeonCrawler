@@ -14,3 +14,7 @@ class Grid:
             pygame.draw.line(screen,self.color, (self.tilesize*i, 0), (self.tilesize*i, self.tilesize*self.x) )
         for i in range(0,self.y):
             pygame.draw.line(screen, self.color, (0, self.tilesize*i), (self.tilesize*self.x, self.tilesize*i) )
+
+    def displayExit(self, screen, color, x, y):
+        pygame.draw.line(screen, color, (self.tilesize*x, self.tilesize*y), (self.tilesize*x + self.tilesize, self.tilesize*y+self.tilesize), 3)
+        pygame.draw.line(screen, color, (self.tilesize*x, self.tilesize*y+self.tilesize), (self.tilesize*x + self.tilesize, self.tilesize*y), 3)

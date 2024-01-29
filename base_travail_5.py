@@ -40,7 +40,7 @@ show_pos = False
 
 keys= { "UP":0 , "DOWN":0, "LEFT":0, "RIGHT":0 }
 
-player_pos = Pos(0,1)
+player_pos = Pos(laby.start[0],laby.start[1])
 
 
 kb = keyboard(keys)
@@ -48,21 +48,8 @@ kb = keyboard(keys)
 #tour de boucle, pour chaque FPS
 while kb.running:
 
-    #
-    #   Gestion des I/O  
-    #
-    
-    #   lecture clavier / souris
-    
-
-    #
-    # gestion des déplacements
-    #
-
     kb.get()
-
     keys = kb.k
-
     kb.n += dt
 
     if kb.n>0:
@@ -80,9 +67,10 @@ while kb.running:
         if not laby.hit_box(new_x, new_y):
             player_pos.x, player_pos.y = new_x, new_y
             kb.n -= player_speed
+            laby.hit_finish(player_pos.x, player_pos.y)
 
-        if show_pos:
-            print("pos: ",player_pos)
+        if kb.sp:
+            print("pos: ",[player_pos.x, player_pos.y])
 
     #
     # affichage des différents composants graphique
@@ -91,8 +79,10 @@ while kb.running:
 
     laby.draw(screen, tilesize)
 
-    if show_grid:
+    if kb.sg:
         grid.draw(screen)
+    grid.displayExit(screen, color["exit_color"], laby.finish[0], laby.finish[1])
+
 
     pygame.draw.rect(screen, color["player_color"], pygame.Rect(player_pos.x*tilesize, player_pos.y*tilesize, tilesize, tilesize))
 
