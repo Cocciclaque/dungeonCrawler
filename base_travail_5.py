@@ -7,6 +7,7 @@ from utils import Pos
 from read_colors import read_color_parameters
 from keyboard import keyboard
 from item import item
+from alien import alien
 # pygame setup
 pygame.init()
 
@@ -43,6 +44,7 @@ keys= { "UP":0 , "DOWN":0, "LEFT":0, "RIGHT":0 }
 
 player_pos = Pos(laby.start[0],laby.start[1])
 items = item(tilesize, color["item_color"])
+aliens = alien(tilesize, color["alien_color"])
 
 kb = keyboard(keys)
 
@@ -93,6 +95,8 @@ while kb.running:
 
     pygame.draw.rect(screen, color["player_color"], pygame.Rect(player_pos.x*tilesize, player_pos.y*tilesize, tilesize, tilesize))
     items.draw(screen)
+    aliens.draw(screen)
+    
     # affichage des modification du screen_view
     pygame.display.flip()
     # gestion fps
