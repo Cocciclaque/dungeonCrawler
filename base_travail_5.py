@@ -41,10 +41,12 @@ show_grid = True
 show_pos = False
 
 keys= { "UP":0 , "DOWN":0, "LEFT":0, "RIGHT":0 }
+alien_direction = random.choice(['UP', 'Down', 'LEFT', 'RIGHT'])
 
 player_pos = Pos(laby.start[0],laby.start[1])
 items = item(tilesize, color["item_color"])
 aliens = alien(tilesize, color["alien_color"])
+alien_move_counter = 0
 
 kb = keyboard(keys)
 
@@ -80,6 +82,14 @@ while kb.running:
             
         if kb.sp:
             print("pos: ", [player_pos.x, player_pos.y])
+            
+        #déplacement des aliens
+        aliens.update_position()
+        
+        alien_move_counter += 1
+        if alien_move_counter >= 2:
+            alien_direction = random.choice(['UP', 'DOWN', 'LEFT', 'RIGHT'])
+            alien_move_counter = 0
 
     #
     # affichage des différents composants graphique
