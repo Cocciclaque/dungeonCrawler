@@ -72,6 +72,12 @@ while kb.running:
 
         if kb.sp:
             print("pos: ",[player_pos.x, player_pos.y])
+            
+        if items.get_item(player_pos.x, player_pos.y):
+            print("Validé")
+            
+        if kb.sp:
+            print("pos: ", [player_pos.x, player_pos.y])
 
     #
     # affichage des différents composants graphique
