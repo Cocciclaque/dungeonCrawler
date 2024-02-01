@@ -13,10 +13,11 @@ pygame.init()
 
 #constantes
 tilesize = 32 # taille d'une tuile IG
-size = (20, 10) # taille du monde
 fps = 30 # fps du jeu
 player_speed = 150 # vitesse du joueur
 next_move = 0 #tic avant déplacement
+offsetX = 0
+offsetY = 0
 
 # color
 read = read_color_parameters()
@@ -25,6 +26,10 @@ color = read.c
 
 level = "data/laby-02.dat"
 
+size = []
+with open (level, "r") as m:
+    size = [int(elt) for elt in m.readlines()[1].rstrip().split(",")]
+
 laby = Labyrinthe(size[0], size[1])
 laby.load_from_file(level)
 laby.set_color(color["wall_color"])
@@ -32,7 +37,9 @@ laby.set_color(color["wall_color"])
 grid = Grid(size[0], size[1],tilesize)
 grid.set_color(color["grid_color"])
 
-screen = pygame.display.set_mode((size[0]*tilesize, size[1]*tilesize))
+screen = pygame.display.set_mode((1500, 800))
+laby.change_origin(offsetX, offsetY)
+grid.change_origin(offsetX, offsetY)
 clock = pygame.time.Clock()
 running = True
 dt = 0
@@ -45,9 +52,10 @@ alien_direction = random.choice(['UP', 'Down', 'LEFT', 'RIGHT'])
 
 player_pos = Pos(laby.start[0],laby.start[1])
 items = item(tilesize, color["item_color"])
+items.change_origin(offsetX, offsetY)
 aliens = alien(tilesize, color["alien_color"])
 alien_move_counter = 0
-
+aliens.change_origin(offsetX, offsetY)
 kb = keyboard(keys)
 
 #tour de boucle, pour chaque FPS
@@ -105,7 +113,7 @@ while kb.running:
     grid.displayExit(screen, color["exit_color"], laby.finish[0], laby.finish[1])
 
 
-    pygame.draw.rect(screen, color["player_color"], pygame.Rect(player_pos.x*tilesize, player_pos.y*tilesize, tilesize, tilesize))
+    pygame.draw.rect(screen, color["player_color"], pygame.Rect(player_pos.x*tilesize+offsetX, player_pos.y*tilesize+offsetY, tilesize, tilesize))
     items.draw(screen)
     aliens.draw(screen)
     

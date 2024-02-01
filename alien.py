@@ -7,11 +7,13 @@ class alien:
         self.tilesize = tilesize
         self.color = color
         self.direction = random.choice(['UP', 'DOWN', 'LEFT', 'RIGHT'])
+        self.offsetX = 0
+        self.offsetY = 0
         
         
     def draw(self, screen):
         for elt in self.item:
-            pygame.draw.circle(screen, self.color, [elt[0] * self.tilesize + self.tilesize // 2, elt[1] * self.tilesize + self.tilesize // 2], 15)
+            pygame.draw.circle(screen, self.color, [elt[0] * self.tilesize + self.tilesize // 2 + self.offsetX, elt[1] * self.tilesize + self.tilesize // 2 + self.offsetY], 15)
             
     def update_position(self, laby):
         new_x, new_y = self.item[0][0], self.item[0][1]
@@ -40,3 +42,7 @@ class alien:
             print("Touché!")
             # Handle collision with player
             self.direction = random.choice(['UP', 'DOWN', 'LEFT', 'RIGHT'])
+            
+    def change_origin(self, X, Y):
+        self.offsetX = X
+        self.offsetY = Y

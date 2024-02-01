@@ -5,6 +5,8 @@ class item:
         self.item = [[10,3]]
         self.tilesize = tilesize
         self.color = color
+        self.offsetX = 0
+        self.offsetY = 0
         
         
     def draw(self, screen):
@@ -18,3 +20,7 @@ class item:
                 self.item.remove(elt)
                 return True
         return False
+    
+    def change_origin(self, X, Y):
+        self.offsetX = X
+        self.offsetY = Y

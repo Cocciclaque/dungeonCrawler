@@ -9,8 +9,8 @@ class Labyrinthe :
         self.sizeY = sizeY
         self.version = ""
         self.author = ""
-        self.start = ""
-        self.finish = ""
+        self.start = [1, 1]
+        self.finish = [20, 10]
         self.end = False
         #attention création d'une matrice en Y X
         self.matrice = [ [0]* self.sizeX for _ in range(self.sizeY) ]
@@ -106,7 +106,12 @@ class Labyrinthe :
         for j in range(self.sizeY):
             for i in range(self.sizeX):
                 if self.matrice[j][i] == 1:
-                    pygame.draw.rect(screen, self.color , (i * tilesize, j * tilesize, tilesize, tilesize))
+                    pygame.draw.rect(screen, self.color , (i * tilesize + self.offsetX, j * tilesize + self.offsetY, tilesize, tilesize))
+        
+    def change_origin(self, X, Y):
+        self.offsetX = X
+        self.offsetY = Y
+        
 
 
 #laby = Labyrinthe(20,10)
