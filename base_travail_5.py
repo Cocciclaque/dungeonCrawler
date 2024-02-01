@@ -97,7 +97,7 @@ while kb.running:
         aliens.check_collision_with_player(player_pos)
         
         alien_move_counter += 1
-        if alien_move_counter >= 2:
+        if alien_move_counter >= 3:
             alien_direction = random.choice(['UP', 'DOWN', 'LEFT', 'RIGHT'])
             alien_move_counter = 0
 

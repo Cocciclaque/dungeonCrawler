@@ -1,4 +1,5 @@
 import pygame
+from read_colors import read_color_parameters
 from utils import convert_data
 
 class Labyrinthe :
@@ -14,6 +15,9 @@ class Labyrinthe :
         self.end = False
         #attention création d'une matrice en Y X
         self.matrice = [ [0]* self.sizeX for _ in range(self.sizeY) ]
+        colors = read_color_parameters()
+        self.colors = colors.readColors("color.ini")
+        print(self.colors)
 
     def set_color(self, v):
         """Fixe la couleur pour dessiner les murs"""
@@ -100,6 +104,11 @@ class Labyrinthe :
         if x>=self.sizeX or x<0 or y<0 or y>=self.sizeY:
             return 1
         return self.matrice[y][x] == 1
+    
+    def hit_water(self, x, y):
+        if x>=self.sizeX or x<0 or y<0 or y>=self.sizeY:
+            return 1
+        return self.matrice[y][x] == 10
 
     def draw(self, screen, tilesize):
         """dessine le labyrithne sur la fenètre screen"""
@@ -107,7 +116,9 @@ class Labyrinthe :
             for i in range(self.sizeX):
                 if self.matrice[j][i] == 1:
                     pygame.draw.rect(screen, self.color , (i * tilesize + self.offsetX, j * tilesize + self.offsetY, tilesize, tilesize))
-        
+                if self.matrice[j][i] == 10:
+                    pygame.draw.rect(screen, self.colors["water_color"] , (i * tilesize + self.offsetX, j * tilesize + self.offsetY, tilesize, tilesize))
+                    
     def change_origin(self, X, Y):
         self.offsetX = X
         self.offsetY = Y
